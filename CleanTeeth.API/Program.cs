@@ -2,7 +2,7 @@ using CleanTeeth.API.ExceptionHandling;
 using CleanTeeth.API.Infrastructure;
 using CleanTeeth.Application;
 using CleanTeeth.Persistence;
-using Scalar.AspNetCore; 
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication()

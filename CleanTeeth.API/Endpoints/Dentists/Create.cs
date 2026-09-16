@@ -1,6 +1,5 @@
 ﻿using CleanTeeth.API.Dtos.Dentists;
 using CleanTeeth.Application.Features.Dentists.Commands.CreateDentist;
-using CleanTeeth.Domain.Enums;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Dentists;
@@ -14,13 +13,10 @@ internal sealed class Create : IEndpoint
             IMediator mediator,
             CancellationToken cancellationToken) =>
         {
-            var gender = Enum.TryParse<Gender>(request.Gender, ignoreCase: true, out var parsedGender)
-               ? parsedGender
-               : (Gender)(-1);
             var command = new CreateDentistCommand
             {
                 Name = request.Name,
-                Gender = gender,
+                Gender = request.Gender,
                 Email = request.Email,
                 Phone = request.Phone,
                 LicenseNumber = request.LicenseNumber,

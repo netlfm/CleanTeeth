@@ -14,6 +14,7 @@ public static class DependencyInjection
         services.AddDbContext<CleanTeethDbContext>(option => option.UseSqlServer("name=CleanTeethConnectionString"));
         services.AddScoped<IDentalOfficeRepository, DentalOfficeRepository>();
         services.AddScoped<IDentistRepository, DentistRepository>();
+        services.AddScoped<IPatientRepository, PatientReository>();
         //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork, UnitOfWorkEFCore>();
         return services;

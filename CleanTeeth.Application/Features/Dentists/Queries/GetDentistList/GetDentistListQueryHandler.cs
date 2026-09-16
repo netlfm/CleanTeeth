@@ -30,7 +30,7 @@ public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, P
            filter,
            cancellationToken);
 
-        var items = _mapper.Map<List<GetDentistListReponse>>(pagedDentists.Items); 
+        var items = _mapper.Map<List<GetDentistListReponse>>(pagedDentists.Items);
         return new PagedResult<GetDentistListReponse>
             (items, pagedDentists.TotalCount, pagedDentists.PageNumber, pagedDentists.PageSize);
     }

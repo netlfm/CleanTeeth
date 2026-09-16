@@ -20,7 +20,5 @@ public class DentistProfile : Profile
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value))
         .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender.ToString()))
         .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()));
-
-        ;
     }
 }
