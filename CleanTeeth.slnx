@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/API/">
+    <Project Path="CleanTeeth.API/CleanTeeth.API.csproj" Id="7438d7af-8ac1-400a-a9d0-fb785a837556" />
+  </Folder>
+  <Folder Name="/Core/">
+    <Project Path="CleanTeeth.Application/CleanTeeth.Application.csproj" Id="4251eae2-2576-438e-9ce1-7268b209443f" />
+    <Project Path="CleanTeeth.Domain/CleanTeeth.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="CleanTeeth.Persistence/CleanTeeth.Persistence.csproj" Id="04b5286b-71b8-43ba-afb9-98845906fce8" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="CleanTeeth.Tests/CleanTeeth.Tests.csproj" />
+  </Folder>
+</Solution>
