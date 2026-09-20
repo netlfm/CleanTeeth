@@ -1,25 +1,25 @@
 ﻿using CleanTeeth.Application.Contracts.Common.Model;
-using CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
+using CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 using MediatR;
 
-namespace CleanTeeth.API.Endpoints.Dentists;
+namespace CleanTeeth.API.Endpoints.Patients;
 
 internal sealed class Get : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("/api/dentist", async (
-            [AsParameters] GetDentistListQuery query,
+        app.MapGet("/api/patient", async (
             IMediator mediator,
-            CancellationToken cancellationToken) =>
+            CancellationToken cancellationToken,
+            [AsParameters] GetPatientListQuery query) =>
         {
             var result = await mediator.Send(query, cancellationToken);
             return Results.Ok(result);
         })
-        .WithTags("Dentist")
-        .WithName("GetDentistList")
-        .WithSummary("Get a paged list of dentist")
-        .Produces<PagedResult<GetDentistListReponse>>(StatusCodes.Status200OK)
+        .WithTags("Patient")
+        .WithName("GetPatientList")
+        .WithSummary("Get a paged list of patient")
+        .Produces<PagedResult<GetPatientListReponse>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status500InternalServerError);
     }

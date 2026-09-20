@@ -20,6 +20,27 @@ public class GlobalExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
+        if (exception is BadHttpRequestException badHttpRequestException)
+        {
+            _logger.LogWarning(
+                badHttpRequestException,
+                "Bad HTTP request.");
+
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Bad request",
+                Detail = badHttpRequestException.Message,
+                Instance = httpContext.Request.Path
+            };
+            httpContext.Response.StatusCode =
+                StatusCodes.Status400BadRequest;
+            await httpContext.Response.WriteAsJsonAsync(
+                problemDetails,
+                cancellationToken);
+
+            return true;
+        }
         if (exception is ApplicationValidationException validationException)
         {
             _logger.LogWarning(
@@ -43,7 +64,6 @@ public class GlobalExceptionHandler : IExceptionHandler
 
             return true;
         }
-
         if (exception is BusinessRuleException businessRuleException)
         {
             _logger.LogWarning(
@@ -91,8 +111,6 @@ public class GlobalExceptionHandler : IExceptionHandler
 
             return true;
         }
-
-        // 未知异常
         _logger.LogError(
             exception,
             "An unexpected error occurred.");

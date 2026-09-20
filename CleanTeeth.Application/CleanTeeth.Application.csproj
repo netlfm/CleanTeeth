@@ -16,8 +16,4 @@
     <ProjectReference Include="..\CleanTeeth.Domain\CleanTeeth.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Patients\Queries\" />
-  </ItemGroup>
-
 </Project>

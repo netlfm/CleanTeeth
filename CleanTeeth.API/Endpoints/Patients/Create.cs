@@ -1,6 +1,5 @@
 ﻿using CleanTeeth.API.Dtos.Patients;
 using CleanTeeth.Application.Features.Patients.Commands.CreatePatient;
-using FluentValidation;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Patients;
@@ -17,7 +16,6 @@ internal sealed class Create : IEndpoint
 
             var command = new CreatePatientCommand
             {
-                PatientNumber = request.PatientNumber,
                 Name = request.Name,
                 Gender = request.Gender,
                 DateOfBirth = request.DateOfBirth,
@@ -26,8 +24,7 @@ internal sealed class Create : IEndpoint
                 Address = request.Address
             };
             var id = await mediator.Send(command, cancellationtoken);
-            //return Results.CreatedAtRoute("", new { id }, id);
-            return Results.Created($"/api/patient/{id}", id);
+            return Results.CreatedAtRoute("GetPatientDetails", new { id }, id);
         })
             .WithTags("Patient")
             .WithName("CreatePatient")

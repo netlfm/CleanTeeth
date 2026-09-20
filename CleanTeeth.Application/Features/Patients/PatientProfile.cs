@@ -1,22 +1,20 @@
 ﻿using AutoMapper;
-using CleanTeeth.Application.Features.Dentists.Queries.GetDentistDetail;
-using CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
+using CleanTeeth.Application.Features.Patients.Queries.GetPatientDetail;
+using CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 using CleanTeeth.Domain.Entities;
 
-namespace CleanTeeth.Application.Features.Dentists;
+namespace CleanTeeth.Application.Features.Patients;
 
-public class DentistProfile : Profile
+public class PatientProfile : Profile
 {
-    public DentistProfile()
+    public PatientProfile()
     {
-        CreateMap<Dentist, GetDentistListReponse>()
+        CreateMap<Patient, GetPatientDetailResponse>()
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Value))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
 
-
-        CreateMap<Dentist, GetDentistDetailResponse>()
+        CreateMap<Patient, GetPatientListReponse>()
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Value))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
-
     }
 }

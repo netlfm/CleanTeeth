@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.API.Dtos.Patients;
 
-public sealed class CreatePatientRequest
+public class UpdatePatientRequest
 {
     public required string Name { get; init; }
     public required DateOnly DateOfBirth { get; init; }

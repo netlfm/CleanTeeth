@@ -11,9 +11,9 @@ public class DentalOffice : AuditableEntity, ISoftDeletable
     public Email Email { get; private set; } = null!;
     public string Address { get; private set; } = null!;
     public PhoneNumber Phone { get; private set; } = null!;
-    public bool IsDeleted { get; set; }
-    public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public bool IsDeleted { get; private set; }
+    public string? DeletedBy { get; private set; }
+    public DateTime? DeletedAt { get; private set; }
 
     private DentalOffice()
     {
@@ -35,6 +35,12 @@ public class DentalOffice : AuditableEntity, ISoftDeletable
         Address = address.Trim();
         Phone = phone;
         Email = email;
+    }
+    public void Delete(string deletedBy)
+    {
+        IsDeleted = true;
+        DeletedBy = deletedBy;
+        DeletedAt = DateTime.UtcNow;
     }
     private void EnforceBusinessRules(string name, string address, PhoneNumber phone, Email email)
     {

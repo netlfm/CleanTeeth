@@ -1,10 +1,11 @@
 ﻿using CleanTeeth.Domain.Enums;
 using MediatR;
 
-namespace CleanTeeth.Application.Features.Patients.Commands.CreatePatient;
+namespace CleanTeeth.Application.Features.Patients.Commands.UpdatePatient;
 
-public class CreatePatientCommand : IRequest<Guid>
+public class UpdatePatientCommand : IRequest
 {
+    public Guid Id { get; set; }
     public required string Name { get; set; }
     public required DateOnly DateOfBirth { get; set; }
     public required Gender Gender { get; set; }

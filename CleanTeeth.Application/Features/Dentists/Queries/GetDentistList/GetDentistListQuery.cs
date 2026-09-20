@@ -6,11 +6,10 @@ namespace CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
 
 public class GetDentistListQuery : IRequest<PagedResult<GetDentistListReponse>>
 {
-    public int? PageNumber { get; set; }
-    public int? PageSize { get; set; }
-    public string? Name { get; set; }
-    public string? Specialty { get; set; }
-    public DentistStatus? Status { get; set; }
-    public DateTime? CreatedFrom { get; set; }
-    public DateTime? CreatedTo { get; set; }
+    public string? Name { get; init; }
+    public string? Specialty { get; init; }
+    public DentistStatus? Status { get; init; }
+
+    public int PageNumber { get; init; } = 1;
+    public int PageSize { get; init; } = 10;
 }

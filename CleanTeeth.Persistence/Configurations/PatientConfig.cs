@@ -1,4 +1,5 @@
 ﻿using CleanTeeth.Domain.Entities;
+using CleanTeeth.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,6 +13,8 @@ public class PatientConfig : IEntityTypeConfiguration<Patient>
         builder.Property(p => p.PatientNumber)
             .HasMaxLength(50)
             .IsRequired();
+        builder.HasIndex(x => x.PatientNumber)
+            .IsUnique();
         builder.Property(p => p.Name)
             .HasMaxLength(200)
             .IsRequired();
@@ -21,20 +24,20 @@ public class PatientConfig : IEntityTypeConfiguration<Patient>
             .HasConversion<string>()
             .HasMaxLength(20)
             .IsRequired();
-        builder.OwnsOne(p => p.Email, emailBuilder =>
+        builder.ComplexProperty(prop => prop.Email, email =>
         {
-            emailBuilder.Property(e => e.Value)
-                .HasColumnName("Email")
-                .HasMaxLength(255)
-                .IsRequired();
+            email.Property(e => e.Value)
+            .HasColumnName("Email")
+            .HasMaxLength(50)
+            .IsRequired();
         });
-        builder.OwnsOne(p => p.Phone, phoneBuilder =>
-        {
-            phoneBuilder.Property(ph => ph.Value)
-                .HasColumnName("Phone")
-                .HasMaxLength(30)
-                .IsRequired();
-        });
+        builder.Property(d => d.Phone)
+            .HasConversion(
+                phone => phone.Value,
+                value => new PhoneNumber(value)
+            )
+            .HasMaxLength(30)
+            .IsRequired();
         builder.Property(p => p.Address)
             .IsRequired()
             .HasMaxLength(500);

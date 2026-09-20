@@ -18,9 +18,10 @@ public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand,
 
     public async Task<Guid> Handle(CreatePatientCommand request, CancellationToken cancellationToken)
     {
+        var patientNumber = $"P{DateTime.UtcNow:yyyyMMddHHmmssfff}";
         var patient = new Patient(
             request.Name,
-            request.PatientNumber,
+            patientNumber,
             request.DateOfBirth,
             request.Gender,
             new PhoneNumber(request.Phone),

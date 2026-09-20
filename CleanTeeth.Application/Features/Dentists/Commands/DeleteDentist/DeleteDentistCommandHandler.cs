@@ -19,7 +19,7 @@ public class DeleteDentistCommandHandler : IRequestHandler<DeleteDentistCommand>
         var dentist = await _repository.GetById(request.Id, cancellationToken) ?? throw new NotFoundException($"Dentist with ID {request.Id} was not found.");
         try
         {
-            await _repository.Delete(dentist, cancellationToken);
+            dentist.Delete("admin");
             await _unitOfWork.Commit(cancellationToken);
         }
         catch (Exception)

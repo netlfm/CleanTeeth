@@ -15,14 +15,11 @@ public class Update : IEndpoint
             UpdateDentistRequest request,
             CancellationToken cancellationToken) =>
         {
-            var gender = Enum.TryParse<Gender>(request.Gender, ignoreCase: true, out var parsedGender)
-           ? parsedGender
-           : (Gender)(-1);
             var command = new UpdateDentistCommand
             {
                 Id = id,
                 Name = request.Name,
-                Gender = gender,
+                Gender = request.Gender,
                 Email = request.Email,
                 Phone = request.Phone,
                 LicenseNumber = request.LicenseNumber,

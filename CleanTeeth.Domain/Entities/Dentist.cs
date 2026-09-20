@@ -15,9 +15,9 @@ public class Dentist : AuditableEntity, ISoftDeletable
     public string? LicenseNumber { get; private set; }
     public string? Specialty { get; private set; }
     public DentistStatus Status { get; private set; }
-    public bool IsDeleted { get; set; }
-    public string? DeletedBy { get; set; }
-    public DateTime? DeletedAt { get; set; }
+    public bool IsDeleted { get; private set; }
+    public string? DeletedBy { get; private set; }
+    public DateTime? DeletedAt { get; private set; }
 
     private Dentist()
     {
@@ -46,6 +46,12 @@ public class Dentist : AuditableEntity, ISoftDeletable
         Email = email;
         LicenseNumber = TrimToNull(licenseNumber);
         Specialty = TrimToNull(specialty);
+    }
+    public void Delete(string deletedBy)
+    {
+        IsDeleted = true;
+        DeletedBy = deletedBy;
+        DeletedAt = DateTime.UtcNow;
     }
     public void ChangeStatus(DentistStatus status)
     {

@@ -53,13 +53,6 @@ public class CleanTeethDbContext : DbContext
                         break;
                 }
             }
-            if (entry.Entity is ISoftDeletable deletable && entry.State == EntityState.Deleted)
-            {
-                entry.State = EntityState.Modified;
-                deletable.IsDeleted = true;
-                //deletable.DeletedBy = _currentUser.UserId;
-                deletable.DeletedAt = now;
-            }
         }
         return await base.SaveChangesAsync(cancellationToken);
     }

@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace CleanTeeth.Application.Features.Patients.Commands.CreatePatient;
+namespace CleanTeeth.Application.Features.Patients.Commands.UpdatePatient;
 
-public class CreatePatientCommandValidator : AbstractValidator<CreatePatientCommand>
+public class UpdatePatientCommandValidator:AbstractValidator<UpdatePatientCommand>
 {
-    public CreatePatientCommandValidator()
+    public UpdatePatientCommandValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Name is required.")

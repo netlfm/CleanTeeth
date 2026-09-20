@@ -23,7 +23,7 @@ public class DeleteDentalOfficeCommandHandler : IRequestHandler<DeleteDentalOffi
         }
         try
         {
-            await _repository.Delete(dentaloffice, cancellationToken);
+            dentaloffice.Delete("admin");
             await _unitofwork.Commit(cancellationToken);
         }
         catch (Exception)

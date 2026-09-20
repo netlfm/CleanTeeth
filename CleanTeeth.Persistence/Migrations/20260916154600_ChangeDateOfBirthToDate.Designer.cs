@@ -5,6 +5,7 @@ using CleanTeeth.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,9 +13,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CleanTeeth.Persistence.Migrations
 {
     [DbContext(typeof(CleanTeethDbContext))]
-    partial class CleanTeethDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260916154600_ChangeDateOfBirthToDate")]
+    partial class ChangeDateOfBirthToDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,28 +211,56 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                    b.HasKey("Id");
 
-                    b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Patient.Email#Email", b1 =>
+                    b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Patient", b =>
+                {
+                    b.OwnsOne("CleanTeeth.Domain.ValueObjects.Email", "Email", b1 =>
                         {
-                            b1.IsRequired();
+                            b1.Property<Guid>("PatientId")
+                                .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("nvarchar(50)")
+                                .HasMaxLength(255)
+                                .HasColumnType("nvarchar(255)")
                                 .HasColumnName("Email");
+
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
                         });
 
-                    b.HasKey("Id");
+                    b.OwnsOne("CleanTeeth.Domain.ValueObjects.PhoneNumber", "Phone", b1 =>
+                        {
+                            b1.Property<Guid>("PatientId")
+                                .HasColumnType("uniqueidentifier");
 
-                    b.HasIndex("PatientNumber")
-                        .IsUnique();
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(30)
+                                .HasColumnType("nvarchar(30)")
+                                .HasColumnName("Phone");
 
-                    b.ToTable("Patients");
+                            b1.HasKey("PatientId");
+
+                            b1.ToTable("Patients");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PatientId");
+                        });
+
+                    b.Navigation("Email")
+                        .IsRequired();
+
+                    b.Navigation("Phone")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

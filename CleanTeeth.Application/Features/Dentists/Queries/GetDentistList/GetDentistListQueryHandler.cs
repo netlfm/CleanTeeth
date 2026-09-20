@@ -16,17 +16,15 @@ public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, P
     }
     public async Task<PagedResult<GetDentistListReponse>> Handle(GetDentistListQuery request, CancellationToken cancellationToken)
     {
-        var filter = new DentistQueryFilter
+        var filter = new GetDentistListQuery
         {
             Name = request.Name,
             Specialty = request.Specialty,
-            Status = request.Status,
-            CreatedFrom = request.CreatedFrom,
-            CreatedTo = request.CreatedTo
+            Status = request.Status
         };
         var pagedDentists = await _repository.GetPagedAsync(
-           request.PageNumber ?? 1,
-           request.PageSize ?? 10,
+           request.PageNumber,
+           request.PageSize,
            filter,
            cancellationToken);
 
