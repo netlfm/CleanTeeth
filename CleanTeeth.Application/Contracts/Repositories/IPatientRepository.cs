@@ -10,5 +10,5 @@ public interface IPatientRepository : IRepository<Patient>
         int pageNumber,
         int pageSize,
         GetPatientListQuery Query,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken);
 }

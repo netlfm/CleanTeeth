@@ -9,12 +9,12 @@ public class UnitOfWorkEFCore : IUnitOfWork
     {
         _context = context;
     }
-    public async Task Commit(CancellationToken cancellationToken = default)
+    public async Task Commit(CancellationToken cancellationToken)
     {
         await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public Task Rollback(CancellationToken cancellationToken = default)
+    public Task Rollback(CancellationToken cancellationToken)
     {
         return Task.CompletedTask;
     }

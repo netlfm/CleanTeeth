@@ -2,6 +2,6 @@
 
 public interface IUnitOfWork
 {
-    Task Commit(CancellationToken cancellationToken = default);
-    Task Rollback(CancellationToken cancellationToken = default);
+    Task Commit(CancellationToken cancellationToken);
+    Task Rollback(CancellationToken cancellationToken);
 }

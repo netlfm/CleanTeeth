@@ -1,5 +1,4 @@
 ﻿using CleanTeeth.Domain.Entities;
-using CleanTeeth.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -20,13 +19,13 @@ internal class DentistConfig : IEntityTypeConfiguration<Dentist>
             .HasMaxLength(50)
             .IsRequired();
         });
-        builder.Property(d => d.Phone)
-            .HasConversion(
-                phone => phone.Value,
-                value => new PhoneNumber(value)
-            )
-            .HasMaxLength(30)
-            .IsRequired();
+        builder.ComplexProperty(prop => prop.Phone, phone =>
+        {
+            phone.Property(p => p.Value)
+                .HasColumnName("Phone")
+                .HasMaxLength(30)
+                .IsRequired();
+        });
         builder.Property(prop => prop.Gender)
             .HasMaxLength(20)
             .HasConversion<string>();

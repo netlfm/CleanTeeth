@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.Application.Features.Patients.Commands.DeletePatient;
 
-internal class DeletePatientCommandValidator:AbstractValidator<DeletePatientCommand>
+internal class DeletePatientCommandValidator : AbstractValidator<DeletePatientCommand>
 {
     public DeletePatientCommandValidator()
     {

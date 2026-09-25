@@ -5,7 +5,7 @@ using MediatR;
 
 namespace CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
 
-public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, PagedResult<GetDentistListReponse>>
+public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, PagedResult<GetDentistListResponse>>
 {
     private readonly IDentistRepository _repository;
     private readonly IMapper _mapper;
@@ -14,7 +14,7 @@ public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, P
         _repository = repository;
         _mapper = mapper;
     }
-    public async Task<PagedResult<GetDentistListReponse>> Handle(GetDentistListQuery request, CancellationToken cancellationToken)
+    public async Task<PagedResult<GetDentistListResponse>> Handle(GetDentistListQuery request, CancellationToken cancellationToken)
     {
         var filter = new GetDentistListQuery
         {
@@ -28,8 +28,8 @@ public class GetDentistListQueryHandler : IRequestHandler<GetDentistListQuery, P
            filter,
            cancellationToken);
 
-        var items = _mapper.Map<List<GetDentistListReponse>>(pagedDentists.Items);
-        return new PagedResult<GetDentistListReponse>
+        var items = _mapper.Map<List<GetDentistListResponse>>(pagedDentists.Items);
+        return new PagedResult<GetDentistListResponse>
             (items, pagedDentists.TotalCount, pagedDentists.PageNumber, pagedDentists.PageSize);
     }
 }

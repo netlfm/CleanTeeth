@@ -4,12 +4,12 @@ using MediatR;
 
 namespace CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
 
-public class GetDentistListQuery : IRequest<PagedResult<GetDentistListReponse>>
+public class GetDentistListQuery : IRequest<PagedResult<GetDentistListResponse>>
 {
     public string? Name { get; init; }
     public string? Specialty { get; init; }
     public DentistStatus? Status { get; init; }
 
-    public int PageNumber { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
+    public int PageNumber { get; init; }
+    public int PageSize { get; init; }
 }

@@ -9,7 +9,7 @@ public class DentistProfile : Profile
 {
     public DentistProfile()
     {
-        CreateMap<Dentist, GetDentistListReponse>()
+        CreateMap<Dentist, GetDentistListResponse>()
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Value))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
 

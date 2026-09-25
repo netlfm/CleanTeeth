@@ -13,7 +13,7 @@ public class PatientProfile : Profile
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Value))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
 
-        CreateMap<Patient, GetPatientListReponse>()
+        CreateMap<Patient, GetPatientListResponse>()
         .ForMember(dest => dest.Phone, opt => opt.MapFrom(src => src.Phone.Value))
         .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email.Value));
     }

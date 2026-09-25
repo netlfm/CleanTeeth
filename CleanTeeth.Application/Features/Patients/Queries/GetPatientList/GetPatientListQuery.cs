@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 
-public class GetPatientListQuery : IRequest<PagedResult<GetPatientListReponse>>
+public class GetPatientListQuery : IRequest<PagedResult<GetPatientListResponse>>
 {
     public string? PatientNumber { get; init; }
     public string? Name { get; init; }

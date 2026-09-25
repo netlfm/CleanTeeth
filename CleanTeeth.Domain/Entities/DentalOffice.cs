@@ -42,7 +42,7 @@ public class DentalOffice : AuditableEntity, ISoftDeletable
         DeletedBy = deletedBy;
         DeletedAt = DateTime.UtcNow;
     }
-    private void EnforceBusinessRules(string name, string address, PhoneNumber phone, Email email)
+    private static void EnforceBusinessRules(string name, string address, PhoneNumber phone, Email email)
     {
         if (string.IsNullOrWhiteSpace(name))
         {

@@ -18,7 +18,7 @@ public class DentistRepository : Repository<Dentist>, IDentistRepository
         int pageNumber,
         int pageSize,
         GetDentistListQuery filter,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         var query = _context.Dentists.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(filter.Name))

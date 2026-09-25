@@ -19,7 +19,7 @@ internal sealed class Get : IEndpoint
         .WithTags("Dentist")
         .WithName("GetDentistList")
         .WithSummary("Get a paged list of dentist")
-        .Produces<PagedResult<GetDentistListReponse>>(StatusCodes.Status200OK)
+        .Produces<PagedResult<GetDentistListResponse>>(StatusCodes.Status200OK)
         .ProducesProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status500InternalServerError);
     }

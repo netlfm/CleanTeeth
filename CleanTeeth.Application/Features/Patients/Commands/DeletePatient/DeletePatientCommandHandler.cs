@@ -24,11 +24,11 @@ public class DeletePatientCommandHandler : IRequestHandler<DeletePatientCommand>
         try
         {
             patient.Delete("admin");
-            await _unitOfWork.Commit();
+            await _unitOfWork.Commit(cancellationToken);
         }
         catch (Exception)
         {
-            await _unitOfWork.Rollback();
+            await _unitOfWork.Rollback(cancellationToken);
             throw;
         }
     }

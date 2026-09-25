@@ -23,6 +23,60 @@ namespace CleanTeeth.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Appointment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DentalOfficeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DentistId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.ComplexProperty<Dictionary<string, object>>("TimeInterval", "CleanTeeth.Domain.Entities.Appointment.TimeInterval#TimeInterval", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<DateTime>("End")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("EndTime");
+
+                            b1.Property<DateTime>("Start")
+                                .HasColumnType("datetime2")
+                                .HasColumnName("StartTime");
+                        });
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DentalOfficeId");
+
+                    b.HasIndex("DentistId");
+
+                    b.HasIndex("PatientId");
+
+                    b.ToTable("Appointments");
+                });
+
             modelBuilder.Entity("CleanTeeth.Domain.Entities.DentalOffice", b =>
                 {
                     b.Property<Guid>("Id")
@@ -128,11 +182,6 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.Property<string>("Specialty")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
@@ -151,6 +200,17 @@ namespace CleanTeeth.Persistence.Migrations
                                 .HasMaxLength(50)
                                 .HasColumnType("nvarchar(50)")
                                 .HasColumnName("Email");
+                        });
+
+                    b.ComplexProperty<Dictionary<string, object>>("Phone", "CleanTeeth.Domain.Entities.Dentist.Phone#PhoneNumber", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(30)
+                                .HasColumnType("nvarchar(30)")
+                                .HasColumnName("Phone");
                         });
 
                     b.HasKey("Id");
@@ -208,11 +268,6 @@ namespace CleanTeeth.Persistence.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
                     b.ComplexProperty<Dictionary<string, object>>("Email", "CleanTeeth.Domain.Entities.Patient.Email#Email", b1 =>
                         {
                             b1.IsRequired();
@@ -224,12 +279,50 @@ namespace CleanTeeth.Persistence.Migrations
                                 .HasColumnName("Email");
                         });
 
+                    b.ComplexProperty<Dictionary<string, object>>("Phone", "CleanTeeth.Domain.Entities.Patient.Phone#PhoneNumber", b1 =>
+                        {
+                            b1.IsRequired();
+
+                            b1.Property<string>("Value")
+                                .IsRequired()
+                                .HasMaxLength(30)
+                                .HasColumnType("nvarchar(30)")
+                                .HasColumnName("Phone");
+                        });
+
                     b.HasKey("Id");
 
                     b.HasIndex("PatientNumber")
                         .IsUnique();
 
                     b.ToTable("Patients");
+                });
+
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Appointment", b =>
+                {
+                    b.HasOne("CleanTeeth.Domain.Entities.DentalOffice", "DentalOffice")
+                        .WithMany()
+                        .HasForeignKey("DentalOfficeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CleanTeeth.Domain.Entities.Dentist", "Dentist")
+                        .WithMany()
+                        .HasForeignKey("DentistId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("CleanTeeth.Domain.Entities.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DentalOffice");
+
+                    b.Navigation("Dentist");
+
+                    b.Navigation("Patient");
                 });
 #pragma warning restore 612, 618
         }

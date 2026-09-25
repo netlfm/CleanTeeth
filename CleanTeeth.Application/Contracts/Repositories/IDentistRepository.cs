@@ -10,5 +10,5 @@ public interface IDentistRepository : IRepository<Dentist>
         int pageNumber,
         int pageSize,
         GetDentistListQuery Query,
-        CancellationToken cancellationToken = default);
+        CancellationToken cancellationToken);
 }

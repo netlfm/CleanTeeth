@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.Application.Features.Patients.Commands.UpdatePatient;
 
-public class UpdatePatientCommandValidator:AbstractValidator<UpdatePatientCommand>
+public class UpdatePatientCommandValidator : AbstractValidator<UpdatePatientCommand>
 {
     public UpdatePatientCommandValidator()
     {

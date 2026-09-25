@@ -18,7 +18,7 @@ public class PatientReository : Repository<Patient>, IPatientRepository
         int pageNumber,
         int pageSize,
         GetPatientListQuery filter,
-        CancellationToken cancellationToken = default)
+        CancellationToken cancellationToken)
     {
         var query = _context.Patients.AsNoTracking();
         if (!string.IsNullOrWhiteSpace(filter.PatientNumber))

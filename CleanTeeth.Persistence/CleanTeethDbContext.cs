@@ -33,7 +33,7 @@ public class CleanTeethDbContext : DbContext
             }
         }
     }
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
         foreach (var entry in ChangeTracker.Entries())
@@ -59,5 +59,6 @@ public class CleanTeethDbContext : DbContext
     public DbSet<DentalOffice> DentalOffices { get; set; }
     public DbSet<Dentist> Dentists { get; set; }
     public DbSet<Patient> Patients { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
 }

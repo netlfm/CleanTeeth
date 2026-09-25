@@ -1,6 +1,5 @@
 ﻿using CleanTeeth.API.Dtos.Dentists;
 using CleanTeeth.Application.Features.Dentists.Commands.UpdateDentist;
-using CleanTeeth.Domain.Enums;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Dentists;

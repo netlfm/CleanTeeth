@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Patients;
 
-internal sealed class Delete:IEndpoint
+internal sealed class Delete : IEndpoint
 {
     public void MapEndpoint(IEndpointRouteBuilder app)
     {

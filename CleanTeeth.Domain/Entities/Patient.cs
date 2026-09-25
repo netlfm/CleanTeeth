@@ -40,7 +40,7 @@ public class Patient : AuditableEntity, ISoftDeletable
         Email = email;
         Address = address;
     }
-    public void Update(string name,DateOnly dateofbirth, Gender gender, PhoneNumber phone, Email email, string address)
+    public void Update(string name, DateOnly dateofbirth, Gender gender, PhoneNumber phone, Email email, string address)
     {
         EnforceBusinessRules(name, dateofbirth, phone, email, address);
         Name = name;
