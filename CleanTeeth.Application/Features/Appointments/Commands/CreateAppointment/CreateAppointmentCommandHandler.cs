@@ -1,6 +1,7 @@
 ﻿using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Exceptions;
+using CleanTeeth.Application.Notifications;
 using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.ValueObjects;
 using MediatR;
@@ -11,11 +12,12 @@ public class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointment
 {
     private readonly IAppointmentRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-
-    public CreateAppointmentCommandHandler(IAppointmentRepository repository, IUnitOfWork unitOfWork)
+    private readonly INotifications _notifications;
+    public CreateAppointmentCommandHandler(IAppointmentRepository repository, IUnitOfWork unitOfWork, INotifications notification)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _notifications = notification;
     }
     public async Task<Guid> Handle(CreateAppointmentCommand request, CancellationToken cancellationToken)
     {
@@ -41,16 +43,29 @@ public class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointment
         }
         var timeInterval = new TimeInterval(request.StartDate, request.EndDate);
         var appointment = new Appointment(request.PatientId, request.DentistId, request.DentalOfficeId, timeInterval);
+        Guid? id = null;
         try
         {
             var result = await _repository.Add(appointment, cancellationToken);
             await _unitOfWork.Commit(cancellationToken);
-            return result.Id;
+            id = result.Id;
         }
         catch (Exception)
         {
             await _unitOfWork.Rollback(cancellationToken);
             throw;
         }
+        var appointmentdto = await _repository.GetById(id.Value, cancellationToken);
+        var dto = new AppointmentReminderDTO
+        {
+            Id = id.Value,
+            DentalOffice = appointmentdto!.DentalOffice!.Name,
+            Dentist = appointment!.Dentist!.Name,
+            Patient = appointment!.Patient!.Name,
+            PatientPhone = appointment.Patient.Phone.Value,
+            Date = appointment.TimeInterval.Start
+        };
+        await _notifications.SendAppointmentReminder(dto);
+        return id.Value;
     }
 }

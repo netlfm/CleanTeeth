@@ -2,9 +2,9 @@
 
 namespace CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
 
-public class GetAppointmentListValidator : AbstractValidator<GetAppointmentListQuery>
+public class GetAppointmentListQueryValidator : AbstractValidator<GetAppointmentListQuery>
 {
-    public GetAppointmentListValidator()
+    public GetAppointmentListQueryValidator()
     {
         RuleFor(x => x.PageNumber)
             .GreaterThanOrEqualTo(1)

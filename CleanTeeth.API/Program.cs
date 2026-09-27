@@ -1,12 +1,14 @@
 using CleanTeeth.API.ExceptionHandling;
 using CleanTeeth.API.Infrastructure;
 using CleanTeeth.Application;
+using CleanTeeth.Infrastructure;
 using CleanTeeth.Persistence;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication()
-    .AddPersistence();
+    .AddPersistence()
+    .AddInfrastructure();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddEndpointsApiExplorer();

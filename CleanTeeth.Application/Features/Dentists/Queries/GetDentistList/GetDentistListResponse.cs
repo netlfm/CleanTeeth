@@ -4,16 +4,16 @@ namespace CleanTeeth.Application.Features.Dentists.Queries.GetDentistList;
 
 public sealed record GetDentistListResponse
 {
-    public Guid Id { get; init; }
-    public string? Name { get; init; }
-    public Gender? Gender { get; init; }
-    public string? Phone { get; init; }
-    public string? Email { get; init; }
-    public string? LicenseNumber { get; init; }
-    public string? Specialty { get; init; }
-    public DentistStatus? Status { get; init; }
-    public string? CreatedBy { get; init; }
-    public DateTime? CreationTime { get; init; }
-    public string? LastModifieBy { get; init; }
-    public DateTime? LastModifiedDate { get; init; }
+    public required Guid Id { get; set; }
+    public string? Name { get; set; }
+    public Gender? Gender { get; set; }
+    public string? Phone { get; set; }
+    public string? Email { get; set; }
+    public string? LicenseNumber { get; set; }
+    public string? Specialty { get; set; }
+    public DentistStatus? Status { get; set; }
+    public string? CreatedBy { get; set; }
+    public DateTime? CreationTime { get; set; }
+    public string? LastModifieBy { get; set; }
+    public DateTime? LastModifiedDate { get; set; }
 }

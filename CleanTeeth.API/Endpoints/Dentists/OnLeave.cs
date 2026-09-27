@@ -16,7 +16,7 @@ internal sealed class OnLeave : IEndpoint
             await mediator.Send(command, cancellationToken);
             return Results.NoContent();
         })
-        .WithTags("Dentist")
+        .WithTags("Dentists")
         .WithName("OnLeaveDentist")
         .WithSummary("ChangeStatus a dentist is OnLeave")
         .Produces<Guid>(StatusCodes.Status201Created)

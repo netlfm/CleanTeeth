@@ -4,17 +4,17 @@ namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientDetail;
 
 public class GetPatientDetailResponse
 {
-    public Guid Id { get; init; }
-    public string? PatientNumber { get; init; }
-    public string? Name { get; init; }
-    public DateOnly? DateOfBirth { get; init; }
-    public Gender? Gender { get; init; }
-    public string? Phone { get; init; }
-    public string? Email { get; init; }
-    public string? Address { get; init; }
-    public DentistStatus? Status { get; init; }
-    public string? CreatedBy { get; init; }
-    public DateTime? CreationTime { get; init; }
-    public string? LastModifieBy { get; init; }
-    public DateTime? LastModifiedDate { get; init; }
+    public required Guid Id { get; set; }
+    public string? PatientNumber { get; set; }
+    public string? Name { get; set; }
+    public DateOnly? DateOfBirth { get; set; }
+    public Gender? Gender { get; set; }
+    public string? Phone { get; set; }
+    public string? Email { get; set; }
+    public string? Address { get; set; }
+    public DentistStatus? Status { get; set; }
+    public string? CreatedBy { get; set; }
+    public DateTime? CreationTime { get; set; }
+    public string? LastModifieBy { get; set; }
+    public DateTime? LastModifiedDate { get; set; }
 }

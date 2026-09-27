@@ -27,7 +27,7 @@ public class Update : IEndpoint
             await mediator.Send(command, cancellationToken);
             return Results.NoContent();
         })
-        .WithTags("Dentist")
+        .WithTags("Dentists")
         .WithName("UpdateDentist")
         .WithSummary("Update an existing dentist")
         .Produces(StatusCodes.Status204NoContent)

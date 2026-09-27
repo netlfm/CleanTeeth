@@ -16,7 +16,7 @@ internal sealed class Get : IEndpoint
             var result = await mediator.Send(query, cancellationToken);
             return Results.Ok(result);
         })
-        .WithTags("Patient")
+        .WithTags("Patients")
         .WithName("GetPatientList")
         .WithSummary("Get a paged list of patient")
         .Produces<PagedResult<GetPatientListResponse>>(StatusCodes.Status200OK)

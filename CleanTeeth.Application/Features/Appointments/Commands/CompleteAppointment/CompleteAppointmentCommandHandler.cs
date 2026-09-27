@@ -17,7 +17,7 @@ public class CompleteAppointmentCommandHandler : IRequestHandler<CompleteAppoint
     public async Task Handle(CompleteAppointmentCommand request, CancellationToken cancellationToken)
     {
         var appointment = await _repository.GetById(request.Id, cancellationToken);
-        if(appointment is null)
+        if (appointment is null)
         {
             throw new NotFoundException($"Appointment with ID {request.Id} was not found.");
         }
@@ -29,7 +29,7 @@ public class CompleteAppointmentCommandHandler : IRequestHandler<CompleteAppoint
         }
         catch (Exception)
         {
-           await _unitOfWork.Rollback(cancellationToken);
+            await _unitOfWork.Rollback(cancellationToken);
             throw;
         }
     }

@@ -16,7 +16,7 @@ internal sealed class Delete : IEndpoint
             await mediator.Send(command, cancellationToken);
             return Results.NoContent();
         })
-        .WithTags("Patient")
+        .WithTags("Patients")
         .WithName("DeletePatient")
         .WithSummary("Delete a patient")
         .Produces(StatusCodes.Status204NoContent)

@@ -26,7 +26,7 @@ internal sealed class Create : IEndpoint
             var id = await mediator.Send(command, cancellationtoken);
             return Results.CreatedAtRoute("GetPatientDetails", new { id }, id);
         })
-            .WithTags("Patient")
+            .WithTags("Patients")
             .WithName("CreatePatient")
             .WithSummary("Create a new patient")
             .Produces<Guid>(StatusCodes.Status201Created)

@@ -24,7 +24,7 @@ public class CancelAppointmentCommandHandler : IRequestHandler<CancelAppointment
         appointment.Cancel();
         try
         {
-            await _repository.Update(appointment,cancellationToken);
+            await _repository.Update(appointment, cancellationToken);
             await _unitOfWork.Commit(cancellationToken);
         }
         catch (Exception)

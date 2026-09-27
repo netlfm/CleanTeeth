@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.Application.Features.Appointments.Commands.CompleteAppointment;
 
-public class CompleteAppointmentCommandValidator:AbstractValidator<CompleteAppointmentCommand>
+public class CompleteAppointmentCommandValidator : AbstractValidator<CompleteAppointmentCommand>
 {
     public CompleteAppointmentCommandValidator()
     {

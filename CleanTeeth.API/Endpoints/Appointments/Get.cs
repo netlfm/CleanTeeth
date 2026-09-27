@@ -1,6 +1,5 @@
 ﻿using CleanTeeth.Application.Contracts.Common.Model;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
-using CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Appointments;

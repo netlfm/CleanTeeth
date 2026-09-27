@@ -4,7 +4,7 @@ namespace CleanTeeth.Application.Features.Dentists.Queries.GetDentistDetail;
 
 public sealed record GetDentistDetailResponse
 {
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
     public string? Name { get; set; }
     public Gender? Gender { get; set; }
     public string? Phone { get; set; }

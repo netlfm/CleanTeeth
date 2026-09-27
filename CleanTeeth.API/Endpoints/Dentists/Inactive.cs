@@ -16,7 +16,7 @@ internal sealed class Inactive : IEndpoint
             await mediator.Send(command, cancellationToken);
             return Results.NoContent();
         })
-        .WithTags("Dentist")
+        .WithTags("Dentists")
         .WithName("InactiveDentist")
         .WithSummary("ChangeStatus a dentist is Inactive")
         .Produces<Guid>(StatusCodes.Status201Created)

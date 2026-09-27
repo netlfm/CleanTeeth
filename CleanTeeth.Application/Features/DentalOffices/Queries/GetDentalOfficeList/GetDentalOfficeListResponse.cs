@@ -2,13 +2,13 @@
 
 public sealed record GetDentalOfficeListResponse
 {
-    public Guid Id { get; set; }
-    public string? Name { get; set; }
-    public string? Email { get; set; }
-    public string? Phone { get; set; }
-    public string? Address { get; set; }
-    public string? CreatedBy { get; set; }
-    public DateTime? CreationTime { get; set; }
-    public string? LastModifieBy { get; set; }
-    public DateTime? LastModifiedDate { get; set; }
+    public required Guid Id { get; init; }
+    public string? Name { get; init; }
+    public string? Email { get; init; }
+    public string? Phone { get; init; }
+    public string? Address { get; init; }
+    public string? CreatedBy { get; init; }
+    public DateTime? CreationTime { get; init; }
+    public string? LastModifieBy { get; init; }
+    public DateTime? LastModifiedDate { get; init; }
 }

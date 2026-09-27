@@ -2,9 +2,9 @@
 
 namespace CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
 
-public class GetAppointmentDetailValidator : AbstractValidator<GetAppointmentDetailQuery>
+public class GetAppointmentDetailQueryValidator : AbstractValidator<GetAppointmentDetailQuery>
 {
-    public GetAppointmentDetailValidator()
+    public GetAppointmentDetailQueryValidator()
     {
         RuleFor(x => x.Id)
         .NotEmpty()

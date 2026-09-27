@@ -16,7 +16,7 @@ internal sealed class GetById : IEndpoint
             var result = await mediator.Send(dentist, cancellationToken);
             return Results.Ok(result);
         })
-        .WithTags("Patient")
+        .WithTags("Patients")
         .WithName("GetPatientDetails")
         .WithSummary("Get patient details by ID")
         .Produces<GetPatientDetailResponse>(StatusCodes.Status200OK)

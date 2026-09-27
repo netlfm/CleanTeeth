@@ -27,7 +27,7 @@ namespace CleanTeeth.API.Endpoints.Patients
                 await mediator.Send(command, cancellationToken);
                 return Results.NoContent();
             })
-            .WithTags("Patient")
+            .WithTags("Patients")
             .WithName("UpdatePatient")
             .WithSummary("Update an existing patient")
             .Produces(StatusCodes.Status204NoContent)

@@ -298,6 +298,50 @@ namespace CleanTeeth.Persistence.Migrations
                     b.ToTable("Patients");
                 });
 
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Treatment", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime?>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId");
+
+                    b.ToTable("Treatments");
+                });
+
             modelBuilder.Entity("CleanTeeth.Domain.Entities.Appointment", b =>
                 {
                     b.HasOne("CleanTeeth.Domain.Entities.DentalOffice", "DentalOffice")
@@ -323,6 +367,17 @@ namespace CleanTeeth.Persistence.Migrations
                     b.Navigation("Dentist");
 
                     b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("CleanTeeth.Domain.Entities.Treatment", b =>
+                {
+                    b.HasOne("CleanTeeth.Domain.Entities.Appointment", "Appointment")
+                        .WithMany()
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
                 });
 #pragma warning restore 612, 618
         }
