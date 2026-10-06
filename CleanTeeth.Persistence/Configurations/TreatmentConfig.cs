@@ -15,5 +15,8 @@ public class TreatmentConfig : IEntityTypeConfiguration<Treatment>
             .OnDelete(DeleteBehavior.Restrict);
         builder.Property(x => x.Notes)
             .HasMaxLength(1000);
+        builder.Property(x => x.Status)
+            .HasConversion<string>()
+            .HasMaxLength(30);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.Application.Features.Treatments.Command.CancelTreatment;
 
-public class CancelTreatmentCommandValidator:AbstractValidator<CancelTreatmentCommand>
+public class CancelTreatmentCommandValidator : AbstractValidator<CancelTreatmentCommand>
 {
     public CancelTreatmentCommandValidator()
     {

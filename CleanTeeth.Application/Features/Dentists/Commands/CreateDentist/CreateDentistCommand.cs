@@ -5,6 +5,7 @@ namespace CleanTeeth.Application.Features.Dentists.Commands.CreateDentist;
 
 public class CreateDentistCommand : IRequest<Guid>
 {
+    public Guid UserId { get; set; }
     public required string Name { get; set; }
     public required Gender Gender { get; set; }
     public required string Phone { get; set; }

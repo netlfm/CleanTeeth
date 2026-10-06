@@ -15,7 +15,7 @@ public class GetDentalOfficeListQueryHandler : IRequestHandler<GetDentalOfficeLi
     }
     public async Task<List<GetDentalOfficeListResponse>> Handle(GetDentalOfficeListQuery request, CancellationToken cancellationToken)
     {
-        var dentaloffice = await _repository.GetAll(cancellationToken);
+        var dentaloffice = await _repository.GetForCurrentUser(cancellationToken);
         var items = _mapper.Map<List<GetDentalOfficeListResponse>>(dentaloffice);
         return items;
     }

@@ -30,6 +30,7 @@ internal sealed class Create : IEndpoint
             .WithSummary("Create a new appointment")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .RequireAuthorization();
     }
 }

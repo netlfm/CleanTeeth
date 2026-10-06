@@ -18,6 +18,7 @@ public class CreateDentistCommandHandler : IRequestHandler<CreateDentistCommand,
     public async Task<Guid> Handle(CreateDentistCommand request, CancellationToken cancellationToken)
     {
         var dentist = new Dentist(
+                    request.UserId,
                     request.Name,
                     request.Gender,
                     new PhoneNumber(request.Phone),

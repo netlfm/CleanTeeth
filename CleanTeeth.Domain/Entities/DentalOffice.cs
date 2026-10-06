@@ -12,7 +12,7 @@ public class DentalOffice : AuditableEntity, ISoftDeletable
     public string Address { get; private set; } = null!;
     public PhoneNumber Phone { get; private set; } = null!;
     public bool IsDeleted { get; private set; }
-    public string? DeletedBy { get; private set; }
+    public Guid? DeletedBy { get; private set; }
     public DateTime? DeletedAt { get; private set; }
 
     private DentalOffice()
@@ -36,7 +36,7 @@ public class DentalOffice : AuditableEntity, ISoftDeletable
         Phone = phone;
         Email = email;
     }
-    public void Delete(string deletedBy)
+    public void Delete(Guid? deletedBy)
     {
         IsDeleted = true;
         DeletedBy = deletedBy;

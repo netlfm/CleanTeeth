@@ -5,6 +5,7 @@ namespace CleanTeeth.Application.Features.Patients.Commands.CreatePatient;
 
 public class CreatePatientCommand : IRequest<Guid>
 {
+    public Guid UserId { get; set; }
     public required string Name { get; set; }
     public required DateOnly DateOfBirth { get; set; }
     public required Gender Gender { get; set; }

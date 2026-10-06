@@ -8,6 +8,7 @@ namespace CleanTeeth.Domain.Entities;
 public class Dentist : AuditableEntity, ISoftDeletable
 {
     public Guid Id { get; private set; }
+    public Guid UserId { get; private set; }
     public string Name { get; private set; } = null!;
     public Gender Gender { get; private set; }
     public PhoneNumber Phone { get; private set; } = null!;
@@ -16,18 +17,22 @@ public class Dentist : AuditableEntity, ISoftDeletable
     public string? Specialty { get; private set; }
     public DentistStatus Status { get; private set; }
     public bool IsDeleted { get; private set; }
-    public string? DeletedBy { get; private set; }
+    public Guid? DeletedBy { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
     private Dentist()
     {
 
     }
 
-    public Dentist(string name, Gender gender, PhoneNumber phone, Email email, string? licenseNumber, string? specialty)
+    public Dentist(Guid userId, string name, Gender gender, PhoneNumber phone, Email email, string? licenseNumber, string? specialty)
     {
+        if (userId == Guid.Empty)
+        {
+            throw new BusinessRuleException($"The {nameof(userId)} is required.");
+        }
         EnforceBusinessRules(name, phone, email);
         Id = Guid.CreateVersion7();
+        UserId = userId;
         Name = name.Trim();
         Phone = phone;
         Gender = gender;
@@ -47,7 +52,7 @@ public class Dentist : AuditableEntity, ISoftDeletable
         LicenseNumber = TrimToNull(licenseNumber);
         Specialty = TrimToNull(specialty);
     }
-    public void Delete(string deletedBy)
+    public void Delete(Guid? deletedBy)
     {
         IsDeleted = true;
         DeletedBy = deletedBy;

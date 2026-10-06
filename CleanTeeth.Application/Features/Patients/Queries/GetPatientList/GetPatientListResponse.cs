@@ -13,8 +13,8 @@ public sealed record GetPatientListResponse
     public string? Email { get; set; }
     public string? Address { get; set; }
     public DentistStatus? Status { get; set; }
-    public string? CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
     public DateTime? CreationTime { get; set; }
-    public string? LastModifieBy { get; set; }
+    public Guid? LastModifiedBy { get; set; }
     public DateTime? LastModifiedDate { get; set; }
 }

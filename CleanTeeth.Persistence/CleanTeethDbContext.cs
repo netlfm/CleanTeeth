@@ -1,4 +1,5 @@
-﻿using CleanTeeth.Domain.Common;
+﻿using CleanTeeth.Application.Contracts.Security;
+using CleanTeeth.Domain.Common;
 using CleanTeeth.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -7,14 +8,15 @@ namespace CleanTeeth.Persistence;
 
 public class CleanTeethDbContext : DbContext
 {
-    public CleanTeethDbContext(DbContextOptions<CleanTeethDbContext> options) : base(options)
+    private readonly IUserService _userService;
+    public CleanTeethDbContext(DbContextOptions<CleanTeethDbContext> options, IUserService userService) : base(options)
     {
-
+        _userService = userService;
     }
-    protected CleanTeethDbContext()
-    {
+    //protected CleanTeethDbContext()
+    //{
 
-    }
+    //}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -43,12 +45,12 @@ public class CleanTeethDbContext : DbContext
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        // auditable.CreatedBy = _currentUser.UserId;
+                        auditable.CreatedBy = _userService.UserId;
                         auditable.CreationTime = now;
                         break;
 
                     case EntityState.Modified:
-                        //auditable.ModifiedBy = _currentUser.UserId;
+                        auditable.LastModifiedBy = _userService.UserId;
                         auditable.LastModifiedDate = now;
                         break;
                 }

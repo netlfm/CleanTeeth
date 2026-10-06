@@ -8,6 +8,7 @@ namespace CleanTeeth.Domain.Entities;
 public class Patient : AuditableEntity, ISoftDeletable
 {
     public Guid Id { get; private set; }
+    public Guid UserId { get; private set; }
     public string PatientNumber { get; private set; } = null!;
     public string Name { get; private set; } = null!;
     public DateOnly DateOfBirth { get; private set; }
@@ -16,20 +17,23 @@ public class Patient : AuditableEntity, ISoftDeletable
     public Email Email { get; private set; } = null!;
     public string Address { get; private set; } = null!;
     public bool IsDeleted { get; private set; }
-    public string? DeletedBy { get; private set; }
+    public Guid? DeletedBy { get; private set; }
     public DateTime? DeletedAt { get; private set; }
-
     private Patient()
     {
 
     }
-    public Patient(string name, string patientnumber, DateOnly dateofbirth, Gender gender, PhoneNumber phone, Email email, string address)
+    public Patient(Guid userId, string name, string patientnumber, DateOnly dateofbirth, Gender gender, PhoneNumber phone, Email email, string address)
     {
+        if (userId == Guid.Empty)
+        {
+            throw new BusinessRuleException($"The {nameof(userId)} is required.");
+        }
         EnforceBusinessRules(name, dateofbirth, phone, email, address);
+        UserId = userId;
         if (string.IsNullOrWhiteSpace(patientnumber))
         {
-            throw new BusinessRuleException(
-                $"The {nameof(patientnumber)} is required.");
+            throw new BusinessRuleException($"The {nameof(patientnumber)} is required.");
         }
         Id = Guid.CreateVersion7();
         Name = name;
@@ -50,7 +54,7 @@ public class Patient : AuditableEntity, ISoftDeletable
         Email = email;
         Address = address;
     }
-    public void Delete(string deletedBy)
+    public void Delete(Guid? deletedBy)
     {
         IsDeleted = true;
         DeletedBy = deletedBy;

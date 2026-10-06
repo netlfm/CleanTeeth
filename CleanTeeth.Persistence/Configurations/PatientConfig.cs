@@ -9,6 +9,9 @@ public class PatientConfig : IEntityTypeConfiguration<Patient>
     public void Configure(EntityTypeBuilder<Patient> builder)
     {
         builder.HasKey(p => p.Id);
+        builder.Property(p => p.UserId)
+       .IsRequired();
+        builder.HasIndex(p => p.UserId);
         builder.Property(p => p.PatientNumber)
             .HasMaxLength(50)
             .IsRequired();

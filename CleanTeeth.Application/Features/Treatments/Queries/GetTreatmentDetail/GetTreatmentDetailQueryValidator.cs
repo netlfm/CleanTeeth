@@ -2,7 +2,7 @@
 
 namespace CleanTeeth.Application.Features.Treatments.Queries.GetTreatmentDetail;
 
-public class GetTreatmentDetailQueryValidator:AbstractValidator<GetTreatmentDetailResponse>
+public class GetTreatmentDetailQueryValidator : AbstractValidator<GetTreatmentDetailResponse>
 {
     public GetTreatmentDetailQueryValidator()
     {

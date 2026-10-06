@@ -21,6 +21,7 @@ internal sealed class Active : IEndpoint
         .WithSummary("ChangeStatus a dentist is Active")
         .Produces<Guid>(StatusCodes.Status201Created)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-        .ProducesProblem(StatusCodes.Status500InternalServerError);
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }

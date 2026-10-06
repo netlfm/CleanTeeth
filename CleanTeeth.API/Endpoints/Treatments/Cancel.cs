@@ -1,5 +1,4 @@
-﻿using CleanTeeth.API.Dtos.Treatments;
-using CleanTeeth.Application.Features.Treatments.Command.CancelTreatment;
+﻿using CleanTeeth.Application.Features.Treatments.Command.CancelTreatment;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Treatments;
@@ -22,6 +21,7 @@ public class Cancel : IEndpoint
             .WithSummary("ChangeStatus a Treatment Is Cancel")
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .RequireAuthorization();
     }
 }

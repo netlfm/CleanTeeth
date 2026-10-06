@@ -13,4 +13,8 @@ public class GetTreatmentListResponse
     public int? DurationMinutes { get; set; }
     public TreatmentStatus Status { get; set; }
     public string? Notes { get; set; }
+    public Guid? CreatedBy { get; set; }
+    public DateTime? CreationTime { get; set; }
+    public Guid? LastModifiedBy { get; set; }
+    public DateTime? LastModifiedDate { get; set; }
 }

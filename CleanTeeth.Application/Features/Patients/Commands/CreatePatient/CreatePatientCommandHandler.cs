@@ -20,6 +20,7 @@ public class CreatePatientCommandHandler : IRequestHandler<CreatePatientCommand,
     {
         var patientNumber = $"P{DateTime.UtcNow:yyyyMMddHHmmssfff}";
         var patient = new Patient(
+            request.UserId,
             request.Name,
             patientNumber,
             request.DateOfBirth,

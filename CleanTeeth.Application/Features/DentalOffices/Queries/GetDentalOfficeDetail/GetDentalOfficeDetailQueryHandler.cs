@@ -21,8 +21,7 @@ public class GetDentalOfficeDetailQueryHandler : IRequestHandler<GetDentalOffice
 
         if (dentalOffice is null)
         {
-            throw new NotFoundException(
-                  $"Dental office with ID {request.Id} was not found.");
+            throw new NotFoundException($"Dental office with ID {request.Id} was not found.");
         }
         var dto = _mapper.Map<GetDentalOfficeDetailResponse>(dentalOffice);
         return dto;

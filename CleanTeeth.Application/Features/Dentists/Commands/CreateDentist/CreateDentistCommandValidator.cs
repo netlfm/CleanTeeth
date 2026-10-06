@@ -6,6 +6,8 @@ public sealed class CreateDentistCommandValidator : AbstractValidator<CreateDent
 {
     public CreateDentistCommandValidator()
     {
+        RuleFor(p => p.UserId)
+            .NotEmpty().WithMessage("The field {PropertyName} is required.");
         RuleFor(p => p.Name)
             .NotEmpty().WithMessage("The field {PropertyName} is required.")
             .MaximumLength(150).WithMessage("The field {PropertyName} must not exceed 150 characters.");

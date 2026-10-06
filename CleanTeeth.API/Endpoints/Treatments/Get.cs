@@ -21,6 +21,7 @@ public class Get : IEndpoint
             .WithSummary("Get a paged list of treatments")
             .Produces<PagedResult<GetTreatmentListResponse>>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
-            .ProducesProblem(StatusCodes.Status500InternalServerError);
+            .ProducesProblem(StatusCodes.Status500InternalServerError)
+            .RequireAuthorization();
     }
 }

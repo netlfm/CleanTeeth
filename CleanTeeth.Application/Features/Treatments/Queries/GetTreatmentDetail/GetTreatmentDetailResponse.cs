@@ -14,8 +14,8 @@ public class GetTreatmentDetailResponse
     public TreatmentStatus Status { get; set; }
     public string? Notes { get; set; }
 
-    public string? CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
     public DateTime? CreationTime { get; set; }
-    public string? LastModifieBy { get; set; }
+    public Guid? LastModifiedBy { get; set; }
     public DateTime? LastModifiedDate { get; set; }
 }

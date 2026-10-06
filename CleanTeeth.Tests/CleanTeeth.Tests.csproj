@@ -8,8 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-	  <PackageReference Include="FluentAssertions" Version="8.10.0" />
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="FluentAssertions" Version="8.10.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.20" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
 	  <PackageReference Include="MSTest.TestAdapter" Version="3.6.1" />
 	  <PackageReference Include="MSTest.TestFramework" Version="3.6.1" />
 	  <PackageReference Include="NSubstitute" Version="6.2.0" />
@@ -18,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CleanTeeth.Application\CleanTeeth.Application.csproj" />
     <ProjectReference Include="..\CleanTeeth.Domain\CleanTeeth.Domain.csproj" />
+    <ProjectReference Include="..\CleanTeeth.Persistence\CleanTeeth.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

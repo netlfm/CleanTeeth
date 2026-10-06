@@ -21,6 +21,7 @@ public class Complete : IEndpoint
        .WithSummary("ChangeStatus a Appointment is Complete")
        .Produces<Guid>(StatusCodes.Status201Created)
        .ProducesValidationProblem(StatusCodes.Status400BadRequest)
-       .ProducesProblem(StatusCodes.Status500InternalServerError);
+       .ProducesProblem(StatusCodes.Status500InternalServerError)
+       .RequireAuthorization();
     }
 }

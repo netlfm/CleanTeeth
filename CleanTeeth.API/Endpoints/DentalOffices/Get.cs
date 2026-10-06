@@ -19,6 +19,7 @@ internal sealed class Get : IEndpoint
         .WithName("GetDentalOfficeList")
         .WithSummary("Get a list of dental offices")
         .Produces<List<GetDentalOfficeListResponse>>(StatusCodes.Status200OK)
-        .ProducesProblem(StatusCodes.Status500InternalServerError);
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }

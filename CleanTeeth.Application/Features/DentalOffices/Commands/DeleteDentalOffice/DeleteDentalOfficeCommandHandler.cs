@@ -1,5 +1,6 @@
 ﻿using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Contracts.Security;
 using CleanTeeth.Application.Exceptions;
 using MediatR;
 
@@ -9,10 +10,12 @@ public class DeleteDentalOfficeCommandHandler : IRequestHandler<DeleteDentalOffi
 {
     private readonly IDentalOfficeRepository _repository;
     private readonly IUnitOfWork _unitofwork;
-    public DeleteDentalOfficeCommandHandler(IDentalOfficeRepository repository, IUnitOfWork unitOfWork)
+    private readonly IUserService _userService;
+    public DeleteDentalOfficeCommandHandler(IDentalOfficeRepository repository, IUnitOfWork unitOfWork, IUserService userService)
     {
         _repository = repository;
         _unitofwork = unitOfWork;
+        _userService = userService;
     }
     public async Task Handle(DeleteDentalOfficeCommand request, CancellationToken cancellationToken)
     {
@@ -23,7 +26,7 @@ public class DeleteDentalOfficeCommandHandler : IRequestHandler<DeleteDentalOffi
         }
         try
         {
-            dentaloffice.Delete("admin");
+            dentaloffice.Delete(_userService.UserId);
             await _unitofwork.Commit(cancellationToken);
         }
         catch (Exception)

@@ -9,6 +9,7 @@
   <Folder Name="/Infrastructure/">
     <Project Path="CleanTeeth.Infrastructure/CleanTeeth.Infrastructure.csproj" Id="80f356a0-1ece-4d2e-a619-8dd723fcb68f" />
     <Project Path="CleanTeeth.Persistence/CleanTeeth.Persistence.csproj" Id="04b5286b-71b8-43ba-afb9-98845906fce8" />
+    <Project Path="CleanTeeth.Security/CleanTeeth.Security.csproj" Id="7b535e9e-aac0-4e2e-903f-8c5542456eef" />
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="CleanTeeth.Tests/CleanTeeth.Tests.csproj" />

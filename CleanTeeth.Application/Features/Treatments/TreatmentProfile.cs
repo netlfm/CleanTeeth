@@ -5,7 +5,7 @@ using CleanTeeth.Domain.Entities;
 
 namespace CleanTeeth.Application.Features.Treatments;
 
-public class TreatmentProfile: Profile
+public class TreatmentProfile : Profile
 {
     public TreatmentProfile()
     {

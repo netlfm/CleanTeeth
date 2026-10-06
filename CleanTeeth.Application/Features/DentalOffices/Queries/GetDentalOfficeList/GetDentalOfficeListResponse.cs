@@ -7,8 +7,8 @@ public sealed record GetDentalOfficeListResponse
     public string? Email { get; init; }
     public string? Phone { get; init; }
     public string? Address { get; init; }
-    public string? CreatedBy { get; init; }
+    public Guid? CreatedBy { get; init; }
     public DateTime? CreationTime { get; init; }
-    public string? LastModifieBy { get; init; }
+    public Guid? LastModifiedBy { get; init; }
     public DateTime? LastModifiedDate { get; init; }
 }

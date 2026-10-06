@@ -2,6 +2,7 @@
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.DentalOffices.Commands.CreateDentalOffice;
 using CleanTeeth.Domain.Entities;
+using CleanTeeth.Domain.ValueObjects;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
@@ -33,7 +34,7 @@ public class CreateDentalOfficeCommandHandlerTests
     {
         // Arrange
         var command = new CreateDentalOfficeCommand { Name = "Test Dental Office" };
-        var dentalOffice = new DentalOffice("Test Dental Office");
+        var dentalOffice = new DentalOffice("Test Dental Office", "Test Address 1", new PhoneNumber("+4912345678"), new Email("office@test.com"));
 
         // 3. 配置 Mock 行为
         _repository.Add(Arg.Any<DentalOffice>(), Arg.Any<CancellationToken>()).Returns(dentalOffice);

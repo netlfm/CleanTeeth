@@ -1,26 +1,29 @@
 ﻿using CleanTeeth.Application.Contracts.Common.Model;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Contracts.Security;
 using CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 using CleanTeeth.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace CleanTeeth.Persistence.Repositories;
 
-public class PatientReository : Repository<Patient>, IPatientRepository
+public class PatientRepository : Repository<Patient>, IPatientRepository
 {
     private readonly CleanTeethDbContext _context;
-
-    public PatientReository(CleanTeethDbContext context) : base(context)
+    private readonly IUserService _userService;
+    public PatientRepository(CleanTeethDbContext context, IUserService userService) : base(context)
     {
         _context = context;
+        _userService = userService;
     }
-    public async Task<PagedResult<Patient>> GetPagedAsync(
-        int pageNumber,
-        int pageSize,
-        GetPatientListQuery filter,
-        CancellationToken cancellationToken)
+    public async Task<PagedResult<Patient>> GetPagedAsync(int pageNumber, int pageSize, GetPatientListQuery filter, CancellationToken cancellationToken)
     {
         var query = _context.Patients.AsNoTracking();
+        if (_userService.IsInRole("Patient"))
+        {
+            query = query.Where(x =>
+                x.UserId == _userService.UserId);
+        }
         if (!string.IsNullOrWhiteSpace(filter.PatientNumber))
         {
             query = query.Where(d => d.PatientNumber.Contains(filter.PatientNumber));

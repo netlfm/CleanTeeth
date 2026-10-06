@@ -9,8 +9,8 @@ public sealed class GetAppointmentListResponse
     public required string Status { get; set; }
     public required DateTime StartDate { get; set; }
     public required DateTime EndDate { get; set; }
-    public DateTime? CreatedBy { get; set; }
+    public Guid? CreatedBy { get; set; }
     public DateTime? CreationTime { get; set; }
-    public string? LastModifieBy { get; set; }
+    public Guid? LastModifiedBy { get; set; }
     public DateTime? LastModifiedDate { get; set; }
 }

@@ -1,5 +1,6 @@
 ﻿using CleanTeeth.Application.Contracts.Common.Model;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Contracts.Security;
 using CleanTeeth.Application.Features.Treatments.Queries.GetTreatmentList;
 using CleanTeeth.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace CleanTeeth.Persistence.Repositories;
 public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
 {
     private readonly CleanTeethDbContext _context;
+    private readonly IUserService _userService;
 
-    public TreatmentRepository(CleanTeethDbContext context) : base(context)
+    public TreatmentRepository(CleanTeethDbContext context, IUserService userService) : base(context)
     {
         _context = context;
+        _userService = userService;
     }
     public async Task<bool> ExistsByAppointmentId(Guid appointmentId, CancellationToken cancellationToken)
     {
@@ -21,14 +24,25 @@ public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
     }
     new public async Task<Treatment?> GetById(Guid id, CancellationToken cancellationToken)
     {
-        return await _context.Treatments
+        var query = _context.Treatments
             .Include(x => x.Appointment)
             .ThenInclude(x => x!.Patient)
             .Include(x => x.Appointment)
             .ThenInclude(x => x!.Dentist)
             .Include(x => x.Appointment)
             .ThenInclude(x => x!.DentalOffice)
-            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+            .AsQueryable();
+        if (_userService.IsInRole("Doctor"))
+        {
+            query = query.Where(x =>
+                x.Appointment!.Dentist!.UserId == _userService.UserId);
+        }
+        else if (_userService.IsInRole("Patient"))
+        {
+            query = query.Where(x =>
+                x.Appointment!.Patient!.UserId == _userService.UserId);
+        }
+        return await query.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
     public async Task<PagedResult<Treatment>> GetPagedAsync(int pageNumber, int pageSize, GetTreatmentListQuery query, CancellationToken cancellationToken)
@@ -41,6 +55,17 @@ public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
                    .ThenInclude(x => x!.Dentist)
                .Include(x => x.Appointment)
                    .ThenInclude(x => x!.DentalOffice);
+
+        if (_userService.IsInRole("Doctor"))
+        {
+            treatments = treatments.Where(x =>
+                x.Appointment!.Dentist!.UserId == _userService.UserId);
+        }
+        else if (_userService.IsInRole("Patient"))
+        {
+            treatments = treatments.Where(x =>
+                x.Appointment!.Patient!.UserId == _userService.UserId);
+        }
 
         if (!string.IsNullOrWhiteSpace(query.PatientName))
         {

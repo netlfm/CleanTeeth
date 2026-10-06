@@ -21,6 +21,7 @@ internal sealed class GetById : IEndpoint
         .Produces<GetDentalOfficeDetailResponse>(StatusCodes.Status200OK)
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
-        .ProducesProblem(StatusCodes.Status500InternalServerError);
+        .ProducesProblem(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }

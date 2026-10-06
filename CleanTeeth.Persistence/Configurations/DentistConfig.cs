@@ -9,6 +9,9 @@ internal class DentistConfig : IEntityTypeConfiguration<Dentist>
     public void Configure(EntityTypeBuilder<Dentist> builder)
     {
         builder.HasKey(prop => prop.Id);
+        builder.Property(prop => prop.UserId)
+             .IsRequired();
+        builder.HasIndex(prop => prop.UserId);
         builder.Property(prop => prop.Name)
              .IsRequired()
              .HasMaxLength(150);
