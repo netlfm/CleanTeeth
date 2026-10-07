@@ -2,7 +2,7 @@ using AutoMapper;
 using CleanTeeth.Application.Contracts.Common.Model;
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Exceptions;
-using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
+using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
 using CleanTeeth.Domain.Entities;
 using FluentAssertions;
