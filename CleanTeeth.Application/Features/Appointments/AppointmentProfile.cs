@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
+using AutoMapper;
+using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
 using CleanTeeth.Domain.Entities;
 
