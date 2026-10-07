@@ -1,6 +1,6 @@
 using AutoMapper;
 using CleanTeeth.Application.Features.Appointments;
-using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
+using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using CleanTeeth.Application.Features.DentalOffices;
 using CleanTeeth.Application.Features.Dentists;
 using CleanTeeth.Application.Features.Patients;
