@@ -30,10 +30,12 @@ public static class DependencyInjection
             .AddEntityFrameworkStores<CleanTeethSecurityDbContext>()
             .AddSignInManager();
         service.AddAuthorizationBuilder()
-            .AddPolicy("Doctor", policy =>
-                policy.RequireRole("Doctor", "Admin"))
+            .AddPolicy("Dentist", policy =>
+                policy.RequireRole("Dentist", "Admin"))
             .AddPolicy("Patient", policy =>
                 policy.RequireRole("Patient", "Admin"))
+            .AddPolicy("PatientOrDentist", policy =>
+                policy.RequireRole("Patient", "Dentist", "Admin"))
             .AddPolicy("Admin", policy =>
                 policy.RequireRole("Admin"));
 

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -15,6 +15,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CleanTeeth.Domain\CleanTeeth.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="CleanTeeth.Tests" />
   </ItemGroup>
 
 </Project>

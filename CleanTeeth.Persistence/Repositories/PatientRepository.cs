@@ -42,11 +42,11 @@ public class PatientRepository : Repository<Patient>, IPatientRepository
         }
         if (filter.Gender.HasValue)
         {
-            query = query.Where(x => x.Gender == filter.Gender);
+            query = query.Where(x => x.Gender == filter.Gender.Value);
         }
         if (filter.DateOfBirth.HasValue)
         {
-            query = query.Where(x => x.DateOfBirth == filter.DateOfBirth);
+            query = query.Where(x => x.DateOfBirth == filter.DateOfBirth.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(filter.Address))

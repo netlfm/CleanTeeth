@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Domain.Exceptions;
+using CleanTeeth.Domain.Exceptions;
 using CleanTeeth.Domain.ValueObjects;
 using FluentAssertions;
 
@@ -7,6 +7,14 @@ namespace CleanTeeth.Tests.Domain.ValueObjects;
 [TestClass]
 public class TimeIntervalTests
 {
+    [TestMethod]
+    public void Constructor_StartEqualsEnd_Throws()
+    {
+        var now = DateTime.UtcNow;
+        Action act = () => new TimeInterval(now, now);
+        act.Should().Throw<BusinessRuleException>();
+    }
+
     [TestMethod]
     public void Constructor_StartIsAfterEnd_Throws()
     {

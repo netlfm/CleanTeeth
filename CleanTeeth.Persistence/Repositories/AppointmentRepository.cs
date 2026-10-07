@@ -37,7 +37,7 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
             .Include(x => x.Dentist)
             .Include(x => x.DentalOffice)
             .AsQueryable();
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             query = query.Where(x =>
                 x.Dentist!.UserId == _userService.UserId);
@@ -57,7 +57,7 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
             .Include(x => x.DentalOffice)
             .Include(x => x.Patient)
             .Include(x => x.Dentist);
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             query = query.Where(x =>
                 x.Dentist!.UserId == _userService.UserId);
@@ -81,6 +81,14 @@ public class AppointmentRepository : Repository<Appointment>, IAppointmentReposi
         {
             query = query.Where(x =>
                 x.Dentist!.Name.Contains(filter.DentistName));
+        }
+        if (filter.Status.HasValue)
+        {
+            query = query.Where(x => x.Status == filter.Status.Value);
+        }
+        if (filter.StartDate.HasValue && filter.EndDate.HasValue)
+        {
+            query = query.Where(x => x.TimeInterval.Start >= filter.StartDate.Value && x.TimeInterval.End <= filter.EndDate.Value);
         }
         var totalCount = await query.CountAsync(cancellationToken);
         var items = await query

@@ -33,6 +33,6 @@ internal sealed class Update : IEndpoint
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization("Doctor");
+            .RequireAuthorization("Dentist");
     }
 }

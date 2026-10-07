@@ -31,7 +31,7 @@ public class DentalOfficeRepository : Repository<DentalOffice>, IDentalOfficeRep
 
     private IQueryable<DentalOffice> ApplyOwnershipFilter(IQueryable<DentalOffice> query)
     {
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             return query.Where(x => x.CreatedBy == _userService.UserId);
         }

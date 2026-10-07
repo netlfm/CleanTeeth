@@ -23,6 +23,6 @@ internal sealed class Delete : IEndpoint
         .ProducesValidationProblem(StatusCodes.Status400BadRequest)
         .ProducesProblem(StatusCodes.Status404NotFound)
         .ProducesProblem(StatusCodes.Status500InternalServerError)
-        .RequireAuthorization();
+        .RequireAuthorization("Admin");
     }
 }

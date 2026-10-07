@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Domain.Entities;
+using CleanTeeth.Domain.Entities;
 using CleanTeeth.Domain.Enums;
 using CleanTeeth.Domain.Exceptions;
 using CleanTeeth.Domain.ValueObjects;
@@ -61,5 +61,56 @@ public class DentistTests
         dentist.ChangeStatus(DentistStatus.Active);
 
         dentist.Status.Should().Be(DentistStatus.Active);
+    }
+
+    [TestMethod]
+    public void ChangeStatus_DifferentStatus_UpdatesStatus()
+    {
+        var dentist = CreateValidDentist();
+
+        dentist.ChangeStatus(DentistStatus.OnLeave);
+
+        dentist.Status.Should().Be(DentistStatus.OnLeave);
+    }
+
+    [TestMethod]
+    public void Update_ValidParameters_UpdatesProperties()
+    {
+        var dentist = CreateValidDentist();
+        var newPhone = new PhoneNumber("+4998765432");
+        var newEmail = new Email("updated@example.com");
+
+        dentist.Update("Updated Name", Gender.Female, newPhone, newEmail, "NEW-LIC", "Updated Specialty");
+
+        dentist.Name.Should().Be("Updated Name");
+        dentist.Gender.Should().Be(Gender.Female);
+        dentist.Phone.Should().Be(newPhone);
+        dentist.Email.Should().Be(newEmail);
+        dentist.LicenseNumber.Should().Be("NEW-LIC");
+        dentist.Specialty.Should().Be("Updated Specialty");
+    }
+
+    [TestMethod]
+    public void Update_EmptyName_Throws()
+    {
+        var dentist = CreateValidDentist();
+
+        Action act = () => dentist.Update(" ", Gender.Male,
+            new PhoneNumber("+4998765432"), new Email("updated@example.com"), null, null);
+
+        act.Should().Throw<BusinessRuleException>();
+    }
+
+    [TestMethod]
+    public void Delete_SetsSoftDeleteFields()
+    {
+        var dentist = CreateValidDentist();
+        var actorId = Guid.NewGuid();
+
+        dentist.Delete(actorId);
+
+        dentist.IsDeleted.Should().BeTrue();
+        dentist.DeletedBy.Should().Be(actorId);
+        dentist.DeletedAt.Should().NotBeNull();
     }
 }

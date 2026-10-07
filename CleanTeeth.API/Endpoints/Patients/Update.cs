@@ -34,7 +34,7 @@ namespace CleanTeeth.API.Endpoints.Patients
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status404NotFound)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization();
+            .RequireAuthorization("Patient");
         }
     }
 }

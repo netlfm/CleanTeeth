@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Domain.Enums;
+using CleanTeeth.Domain.Enums;
 
 namespace CleanTeeth.Application.Features.Patients.Queries.GetPatientList;
 
@@ -12,7 +12,6 @@ public sealed record GetPatientListResponse
     public string? Phone { get; set; }
     public string? Email { get; set; }
     public string? Address { get; set; }
-    public DentistStatus? Status { get; set; }
     public Guid? CreatedBy { get; set; }
     public DateTime? CreationTime { get; set; }
     public Guid? LastModifiedBy { get; set; }

@@ -20,7 +20,7 @@ public class DentistRepository : Repository<Dentist>, IDentistRepository
     public async Task<PagedResult<Dentist>> GetPagedAsync(int pageNumber, int pageSize, GetDentistListQuery filter, CancellationToken cancellationToken)
     {
         var query = _context.Dentists.AsNoTracking();
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             query = query.Where(x =>
                 x.UserId == _userService.UserId);

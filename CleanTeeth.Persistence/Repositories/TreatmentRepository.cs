@@ -32,7 +32,7 @@ public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
             .Include(x => x.Appointment)
             .ThenInclude(x => x!.DentalOffice)
             .AsQueryable();
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             query = query.Where(x =>
                 x.Appointment!.Dentist!.UserId == _userService.UserId);
@@ -56,7 +56,7 @@ public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
                .Include(x => x.Appointment)
                    .ThenInclude(x => x!.DentalOffice);
 
-        if (_userService.IsInRole("Doctor"))
+        if (_userService.IsInRole("Dentist"))
         {
             treatments = treatments.Where(x =>
                 x.Appointment!.Dentist!.UserId == _userService.UserId);
@@ -87,14 +87,11 @@ public class TreatmentRepository : Repository<Treatment>, ITreatmentRepository
 
         if (query.Status.HasValue)
         {
-            treatments = treatments.Where(x =>
-                x.Status == query.Status.Value);
+            treatments = treatments.Where(x => x.Status == query.Status.Value);
         }
         if (query.StartDate.HasValue && query.EndDate.HasValue)
         {
-            treatments = treatments.Where(x =>
-                x.StartTime < query.EndDate.Value &&
-                x.EndTime > query.StartDate.Value);
+            treatments = treatments.Where(x => x.StartTime < query.EndDate.Value && x.EndTime > query.StartDate.Value);
         }
 
         var totalCount = await treatments.CountAsync(cancellationToken);

@@ -1,4 +1,5 @@
 ﻿using CleanTeeth.Application.Contracts.Common.Model;
+using CleanTeeth.Domain.Enums;
 using MediatR;
 
 namespace CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
@@ -8,7 +9,7 @@ public class GetAppointmentListQuery : IRequest<PagedResult<GetAppointmentListRe
     public string? PatientName { get; init; }
     public string? DentistName { get; init; }
     public string? DentalOfficeName { get; init; }
-    public string? Status { get; init; }
+    public AppointmentStatus? Status { get; init; }
     public DateTime? StartDate { get; init; }
     public DateTime? EndDate { get; init; }
     public int PageNumber { get; init; }

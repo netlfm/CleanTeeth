@@ -60,10 +60,10 @@ public class CreateAppointmentCommandHandler : IRequestHandler<CreateAppointment
         {
             Id = id.Value,
             DentalOffice = appointmentdto!.DentalOffice!.Name,
-            Dentist = appointment!.Dentist!.Name,
-            Patient = appointment!.Patient!.Name,
-            PatientPhone = appointment.Patient.Phone.Value,
-            Date = appointment.TimeInterval.Start
+            Dentist = appointmentdto.Dentist!.Name,
+            Patient = appointmentdto.Patient!.Name,
+            PatientPhone = appointmentdto.Patient.Phone.Value,
+            Date = appointmentdto.TimeInterval.Start
         };
         await _notifications.SendAppointmentReminder(dto);
         return id.Value;

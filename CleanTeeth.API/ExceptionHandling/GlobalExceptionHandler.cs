@@ -9,22 +9,16 @@ public class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly ILogger<GlobalExceptionHandler> _logger;
 
-    public GlobalExceptionHandler(
-        ILogger<GlobalExceptionHandler> logger)
+    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
     {
         _logger = logger;
     }
 
-    public async ValueTask<bool> TryHandleAsync(
-        HttpContext httpContext,
-        Exception exception,
-        CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is BadHttpRequestException badHttpRequestException)
         {
-            _logger.LogWarning(
-                badHttpRequestException,
-                "Bad HTTP request.");
+            _logger.LogWarning(badHttpRequestException, "Bad HTTP request.");
 
             var problemDetails = new ProblemDetails
             {
@@ -33,42 +27,31 @@ public class GlobalExceptionHandler : IExceptionHandler
                 Detail = badHttpRequestException.Message,
                 Instance = httpContext.Request.Path
             };
-            httpContext.Response.StatusCode =
-                StatusCodes.Status400BadRequest;
-            await httpContext.Response.WriteAsJsonAsync(
-                problemDetails,
-                cancellationToken);
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
             return true;
         }
         if (exception is ApplicationValidationException validationException)
         {
-            _logger.LogWarning(
-                validationException,
-                "Validation error occurred.");
+            _logger.LogWarning(validationException, "Validation error occurred.");
 
-            var validationProblemDetails =
-                new ValidationProblemDetails(validationException.Errors)
-                {
-                    Status = StatusCodes.Status400BadRequest,
-                    Title = "Validation failed",
-                    Instance = httpContext.Request.Path
-                };
+            var validationProblemDetails = new ValidationProblemDetails(validationException.Errors)
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Validation failed",
+                Instance = httpContext.Request.Path
+            };
 
-            httpContext.Response.StatusCode =
-                StatusCodes.Status400BadRequest;
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-            await httpContext.Response.WriteAsJsonAsync(
-                validationProblemDetails,
-                cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(validationProblemDetails, cancellationToken);
 
             return true;
         }
         if (exception is BusinessRuleException businessRuleException)
         {
-            _logger.LogWarning(
-                businessRuleException,
-                "Business rule violation.");
+            _logger.LogWarning(businessRuleException, "Business rule violation.");
 
             var problemDetails = new ProblemDetails
             {
@@ -78,21 +61,16 @@ public class GlobalExceptionHandler : IExceptionHandler
                 Instance = httpContext.Request.Path
             };
 
-            httpContext.Response.StatusCode =
-                StatusCodes.Status400BadRequest;
+            httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
-            await httpContext.Response.WriteAsJsonAsync(
-                problemDetails,
-                cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
             return true;
         }
 
         if (exception is NotFoundException notFoundException)
         {
-            _logger.LogWarning(
-                notFoundException,
-                "Resource not found.");
+            _logger.LogWarning(notFoundException, "Resource not found.");
 
             var problemDetails = new ProblemDetails
             {
@@ -102,18 +80,13 @@ public class GlobalExceptionHandler : IExceptionHandler
                 Instance = httpContext.Request.Path
             };
 
-            httpContext.Response.StatusCode =
-                StatusCodes.Status404NotFound;
+            httpContext.Response.StatusCode = StatusCodes.Status404NotFound;
 
-            await httpContext.Response.WriteAsJsonAsync(
-                problemDetails,
-                cancellationToken);
+            await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
             return true;
         }
-        _logger.LogError(
-            exception,
-            "An unexpected error occurred.");
+        _logger.LogError(exception, "An unexpected error occurred.");
 
         var unexpectedProblemDetails = new ProblemDetails
         {
@@ -122,12 +95,9 @@ public class GlobalExceptionHandler : IExceptionHandler
             Instance = httpContext.Request.Path
         };
 
-        httpContext.Response.StatusCode =
-            StatusCodes.Status500InternalServerError;
+        httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-        await httpContext.Response.WriteAsJsonAsync(
-            unexpectedProblemDetails,
-            cancellationToken);
+        await httpContext.Response.WriteAsJsonAsync(unexpectedProblemDetails, cancellationToken);
 
         return true;
     }

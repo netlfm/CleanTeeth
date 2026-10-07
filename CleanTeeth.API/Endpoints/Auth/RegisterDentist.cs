@@ -22,7 +22,7 @@ internal sealed class RegisterDentist : IEndpoint
             {
                 return Results.BadRequest(createResult.Errors);
             }
-            await userManager.AddToRoleAsync(user, "Doctor");
+            await userManager.AddToRoleAsync(user, "Dentist");
             try
             {
                 var command = new CreateDentistCommand
@@ -47,7 +47,7 @@ internal sealed class RegisterDentist : IEndpoint
         .AllowAnonymous()
         .WithTags("Auth")
         .WithName("RegisterDentist")
-        .WithSummary("creates a dentist account, assigns the Doctor role and the dentist profile")
+        .WithSummary("creates a dentist account, assigns the Dentist role and the dentist profile")
         .Produces<Guid>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status403Forbidden);

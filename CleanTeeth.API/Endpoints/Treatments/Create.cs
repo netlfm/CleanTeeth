@@ -24,6 +24,6 @@ public class Create : IEndpoint
             .Produces<Guid>(StatusCodes.Status201Created)
             .ProducesValidationProblem(StatusCodes.Status400BadRequest)
             .ProducesProblem(StatusCodes.Status500InternalServerError)
-            .RequireAuthorization();
+            .RequireAuthorization("Dentist");
     }
 }

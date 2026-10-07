@@ -15,16 +15,18 @@ public class Login : IEndpoint
                     SignInManager<User> signInManager,
                     ITokenService tokenService) =>
         {
-            var user = await userManager.FindByEmailAsync(request.Email); if (user is null)
+            var user = await userManager.FindByEmailAsync(request.Email);
+            if (user is null)
             {
                 return Results.Unauthorized();
             }
-            var result = await signInManager.CheckPasswordSignInAsync(
-                user, request.Password, lockoutOnFailure: true); if (!result.Succeeded)
+            var result = await signInManager.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);
+            if (!result.Succeeded)
             {
                 return Results.Unauthorized();
             }
-            var roles = await userManager.GetRolesAsync(user); var token = tokenService.GenerateToken(user, roles);
+            var roles = await userManager.GetRolesAsync(user);
+            var token = tokenService.GenerateToken(user, roles);
             return Results.Ok(new { accessToken = token, expiresIn = "PT480M" });
         })
         .AllowAnonymous()

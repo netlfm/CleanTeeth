@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Domain.Exceptions;
+using CleanTeeth.Domain.Exceptions;
 using CleanTeeth.Domain.ValueObjects;
 using FluentAssertions;
 
@@ -13,16 +13,32 @@ public class EmailTests
         Action act = () => new Email(null!);
         act.Should().Throw<BusinessRuleException>();
     }
+
+    [TestMethod]
+    public void Constructor_EmptyEmail_Throws()
+    {
+        Action act = () => new Email(" ");
+        act.Should().Throw<BusinessRuleException>();
+    }
+
     [TestMethod]
     public void Constructor_EmailWithoutAt_Throws()
     {
         Action act = () => new Email("invalidemail.com");
         act.Should().Throw<BusinessRuleException>();
     }
+
     [TestMethod]
     public void Constructor_ValidEmail_NoException()
     {
         Action act = () => new Email("valid@example.com");
         act.Should().NotThrow<BusinessRuleException>();
+    }
+
+    [TestMethod]
+    public void Constructor_ValidEmail_SetsValue()
+    {
+        var email = new Email("valid@example.com");
+        email.Value.Should().Be("valid@example.com");
     }
 }

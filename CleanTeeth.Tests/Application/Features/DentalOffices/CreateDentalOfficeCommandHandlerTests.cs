@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Application.Contracts.Persistence;
+using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
 using CleanTeeth.Application.Features.DentalOffices.Commands.CreateDentalOffice;
 using CleanTeeth.Domain.Entities;
@@ -33,7 +33,13 @@ public class CreateDentalOfficeCommandHandlerTests
     public async Task Handle_ValidCommand_ReturnsDentalOfficeId()
     {
         // Arrange
-        var command = new CreateDentalOfficeCommand { Name = "Test Dental Office" };
+        var command = new CreateDentalOfficeCommand
+        {
+            Name = "Test Dental Office",
+            Address = "Test Address 1",
+            Phone = "+4912345678",
+            Email = "office@test.com"
+        };
         var dentalOffice = new DentalOffice("Test Dental Office", "Test Address 1", new PhoneNumber("+4912345678"), new Email("office@test.com"));
 
         // 3. 配置 Mock 行为
@@ -52,7 +58,13 @@ public class CreateDentalOfficeCommandHandlerTests
     public async Task Handle_WhenTheresAnError_WeRollback()
     {
         // Arrange
-        var command = new CreateDentalOfficeCommand { Name = "Test Dental Office" };
+        var command = new CreateDentalOfficeCommand
+        {
+            Name = "Test Dental Office",
+            Address = "Test Address 1",
+            Phone = "+4912345678",
+            Email = "office@test.com"
+        };
         _repository.Add(Arg.Any<DentalOffice>(), Arg.Any<CancellationToken>()).Throws<Exception>();
 
         // Act

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Exceptions;
 using CleanTeeth.Application.Features.DentalOffices.Queries.GetDentalOfficeDetail;
 using CleanTeeth.Domain.Entities;
-using CleanTeeth.Application.Exceptions;
 using CleanTeeth.Domain.ValueObjects;
 using FluentAssertions;
 using NSubstitute;
