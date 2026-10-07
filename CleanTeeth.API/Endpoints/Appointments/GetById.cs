@@ -1,4 +1,4 @@
-﻿using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
+using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using MediatR;
 
 namespace CleanTeeth.API.Endpoints.Appointments;
