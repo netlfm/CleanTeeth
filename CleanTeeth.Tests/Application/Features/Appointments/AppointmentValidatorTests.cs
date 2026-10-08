@@ -1,7 +1,7 @@
 using CleanTeeth.Application.Features.Appointments.Commands.CancelAppointment;
 using CleanTeeth.Application.Features.Appointments.Commands.CompleteAppointment;
 using CleanTeeth.Application.Features.Appointments.Commands.CreateAppointment;
-using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDelail;
+using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentDetail;
 using CleanTeeth.Application.Features.Appointments.Queries.GetAppointmentList;
 using FluentAssertions;
 

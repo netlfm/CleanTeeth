@@ -2,7 +2,9 @@
 using CleanTeeth.Application.Features.Dentists.Commands.CreateDentist;
 using CleanTeeth.Security.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace CleanTeeth.API.Endpoints.Auth;
 
@@ -11,6 +13,7 @@ internal sealed class RegisterDentist : IEndpoint
     public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("/api/auth/register/dentist", async (
+            HttpContext httpContext,
             RegisterDentistRequest request,
             UserManager<User> userManager,
             IMediator mediator,
@@ -23,6 +26,15 @@ internal sealed class RegisterDentist : IEndpoint
                 return Results.BadRequest(createResult.Errors);
             }
             await userManager.AddToRoleAsync(user, "Dentist");
+
+            var claims = new List<Claim>
+            {
+                new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new(ClaimTypes.Email, user.Email ?? string.Empty),
+                new(ClaimTypes.Role, "Dentist")
+            };
+            httpContext.User = new ClaimsPrincipal(new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme));
+
             try
             {
                 var command = new CreateDentistCommand

@@ -38,6 +38,7 @@ public class CleanTeethDbContext : DbContext
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
     {
         var now = DateTime.UtcNow;
+        var currentUserId = _userService.UserId;
         foreach (var entry in ChangeTracker.Entries())
         {
             if (entry.Entity is AuditableEntity auditable)
@@ -45,12 +46,12 @@ public class CleanTeethDbContext : DbContext
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        auditable.CreatedBy = _userService.UserId;
+                        auditable.CreatedBy = currentUserId;
                         auditable.CreationTime = now;
                         break;
 
                     case EntityState.Modified:
-                        auditable.LastModifiedBy = _userService.UserId;
+                        auditable.LastModifiedBy = currentUserId;
                         auditable.LastModifiedDate = now;
                         break;
                 }
@@ -63,4 +64,5 @@ public class CleanTeethDbContext : DbContext
     public DbSet<Patient> Patients { get; set; }
     public DbSet<Appointment> Appointments { get; set; }
     public DbSet<Treatment> Treatments { get; set; }
+    public DbSet<AuditLog> AuditLogs { get; set; }
 }
