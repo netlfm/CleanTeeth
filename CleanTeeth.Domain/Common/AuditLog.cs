@@ -1,4 +1,6 @@
-﻿namespace CleanTeeth.Domain.Common;
+﻿using CleanTeeth.Domain.Exceptions;
+
+namespace CleanTeeth.Domain.Common;
 
 public class AuditLog
 {
@@ -16,11 +18,11 @@ public class AuditLog
     {
         if (string.IsNullOrWhiteSpace(entityName))
         {
-            throw new ArgumentException("Entity name is required.", nameof(entityName));
+            throw new BusinessRuleException($"The {nameof(entityName)} is required.");
         }
         if (string.IsNullOrWhiteSpace(action))
         {
-            throw new ArgumentException("Action is required.", nameof(action));
+            throw new BusinessRuleException($"The {nameof(action)} is required.");
         }
 
         Id = Guid.CreateVersion7();

@@ -32,6 +32,7 @@ public class Treatment : AuditableEntity
         {
             throw new BusinessRuleException("Only an in-progress treatment can be completed.");
         }
+        EndTime = endTime;
         DurationMinutes = (int)(endTime - StartTime!.Value).TotalMinutes;
         Notes = finalNotes;
         Status = TreatmentStatus.Completed;

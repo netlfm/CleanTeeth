@@ -9,7 +9,10 @@ public class AppointmentMessageDataDTO
     public required string DentalOffice { get; set; }
     public required DateTime Date { get; set; }
 }
+
 public class AppointmentReminderDTO : AppointmentMessageDataDTO
 {
 
 }
+
+

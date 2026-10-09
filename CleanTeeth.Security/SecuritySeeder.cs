@@ -13,13 +13,7 @@ public static class SecuritySeeder
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
         var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-
-        string[] roles =
-        {
-            "Admin",
-            "Dentist",
-            "Patient"
-        };
+        string[] roles = { "Admin", "Dentist", "Patient" };
         foreach (var role in roles)
         {
             if (!await roleManager.RoleExistsAsync(role))
@@ -30,9 +24,6 @@ public static class SecuritySeeder
                 });
             }
         }
-
-        // 仅当系统中还没有任何 Admin 用户时，才用配置中的凭据创建初始管理员。
-        // 凭据来自 User Secrets / 环境变量，不会硬编码进源码。
         var existingAdmins = await userManager.GetUsersInRoleAsync("Admin");
         if (existingAdmins.Count > 0)
         {

@@ -45,7 +45,7 @@ public class AuditSaveChangesInterceptor : SaveChangesInterceptor
             EntityState.Deleted => "Deleted",
             _ => "Unknown"
         };
-        string? changes = null;
+        string changes = string.Empty;
         if (entry.State == EntityState.Modified)
         {
             var modifiedProperties = entry.Properties

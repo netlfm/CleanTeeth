@@ -16,8 +16,22 @@ public class MessageService : INotifications
         {
             throw new ArgumentNullException(nameof(appointmentReminderDTO));
         }
-        string message = $"[Appointment Reminder] This is a reminder that your appointment is coming up. Time: {appointmentReminderDTO.Date:yyyy-MM-dd HH:mm}.";
+        string message = $"[Appointment Confirmation] Dear {appointmentReminderDTO.Patient}, your appointment with Dr. {appointmentReminderDTO.Dentist} at {appointmentReminderDTO.DentalOffice} is confirmed for {appointmentReminderDTO.Date:yyyy-MM-dd HH:mm}.";
         await SendPhoneMessage(appointmentReminderDTO.PatientPhone, message);
+    }
+
+    public async Task SendTreatmentReport(TreatmentReportDTO treatmentReportDTO)
+    {
+        if (treatmentReportDTO == null)
+        {
+            throw new ArgumentNullException(nameof(treatmentReportDTO));
+        }
+        string message = $"[Treatment Report] Dear {treatmentReportDTO.Patient}, your treatment at {treatmentReportDTO.DentalOffice} by Dr. {treatmentReportDTO.Dentist} has been completed on {treatmentReportDTO.CompletedAt:yyyy-MM-dd HH:mm}. Duration: {treatmentReportDTO.DurationMinutes} min.";
+        if (!string.IsNullOrWhiteSpace(treatmentReportDTO.Notes))
+        {
+            message += $" Diagnosis: {treatmentReportDTO.Notes}";
+        }
+        await SendPhoneMessage(treatmentReportDTO.PatientPhone, message);
     }
 
     private async Task SendPhoneMessage(string phone, string message)

@@ -1,5 +1,6 @@
 ﻿using CleanTeeth.Application.Contracts.Persistence;
 using CleanTeeth.Application.Contracts.Repositories;
+using CleanTeeth.Application.Notifications;
 using CleanTeeth.Domain.Exceptions;
 using MediatR;
 
@@ -9,10 +10,12 @@ public class CompleteTreatmentCommandHandler : IRequestHandler<CompleteTreatment
 {
     private readonly ITreatmentRepository _repository;
     private readonly IUnitOfWork _unitOfWork;
-    public CompleteTreatmentCommandHandler(ITreatmentRepository repository, IUnitOfWork unitOfWork)
+    private readonly INotifications _notifications;
+    public CompleteTreatmentCommandHandler(ITreatmentRepository repository, IUnitOfWork unitOfWork, INotifications notifications)
     {
         _repository = repository;
         _unitOfWork = unitOfWork;
+        _notifications = notifications;
     }
     public async Task Handle(CompleteTreatmentCommand request, CancellationToken cancellationToken)
     {
@@ -33,5 +36,18 @@ public class CompleteTreatmentCommandHandler : IRequestHandler<CompleteTreatment
             await _unitOfWork.Rollback(cancellationToken);
             throw;
         }
+        var dto = new TreatmentReportDTO
+        {
+            Id = treatment.Id,
+            DentalOffice = treatment.Appointment!.DentalOffice!.Name,
+            Dentist = treatment.Appointment.Dentist!.Name,
+            Patient = treatment.Appointment.Patient!.Name,
+            PatientPhone = treatment.Appointment.Patient.Phone.Value,
+            Date = treatment.StartTime!.Value,
+            DurationMinutes = treatment.DurationMinutes,
+            Notes = treatment.Notes,
+            CompletedAt = treatment.EndTime!.Value
+        };
+        await _notifications.SendTreatmentReport(dto);
     }
 }
